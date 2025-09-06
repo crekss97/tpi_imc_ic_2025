@@ -1,12 +1,20 @@
+import { useState } from "react";
 import axios from "axios";
-import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Alert,
+  Paper,
+} from "@mui/material";
 
 interface ImcResult {
   imc: number;
   categoria: string;
 }
 
-function ImcForm() {
+export default function ImcForm() {
   const [altura, setAltura] = useState("");
   const [peso, setPeso] = useState("");
   const [resultado, setResultado] = useState<ImcResult | null>(null);
@@ -40,48 +48,66 @@ function ImcForm() {
   };
 
   return (
-    <div>
-      <div>
-        <h1>Calculadora de IMC</h1>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Altura (m):</label>
-            <input
-              type="number"
-              value={altura}
-              onChange={(e) => setAltura(e.target.value)}
-              step="0.01"
-              min="0.1"
-            />
-          </div>
-          <div>
-            <label>Peso (kg):</label>
-            <input
-              type="number"
-              value={peso}
-              onChange={(e) => setPeso(e.target.value)}
-              min="1"
-            />
-          </div>
-          <button type="submit">Calcular</button>
-        </form>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "80vh",
+        mt: 5,
+      }}
+    >
+      <Paper elevation={4} sx={{ p: 4, borderRadius: 3, width: 400 }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Calculadora de IMC
+        </Typography>
+
+        <Box component="form" onSubmit={handleSubmit} noValidate>
+          <TextField
+            label="Altura (m)"
+            type="number"
+            value={altura}
+            onChange={(e) => setAltura(e.target.value)}
+            inputProps={{ min: "0.1", step: "0.01" }}
+            fullWidth
+            margin="normal"
+          />
+
+          <TextField
+            label="Peso (kg)"
+            type="number"
+            value={peso}
+            onChange={(e) => setPeso(e.target.value)}
+            inputProps={{ min: "1" }}
+            fullWidth
+            margin="normal"
+          />
+
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ mt: 2, borderRadius: 2 }}
+          >
+            Calcular
+          </Button>
+        </Box>
 
         {resultado && (
-          <div>
-            <p>IMC: {resultado.imc.toFixed(2)}</p>
-            <p>Categoría: {resultado.categoria}</p>
-          </div>
+          <Box sx={{ mt: 3 }}>
+            <Alert severity="success">
+              <Typography>IMC: {resultado.imc.toFixed(2)}</Typography>
+              <Typography>Categoría: {resultado.categoria}</Typography>
+            </Alert>
+          </Box>
         )}
 
         {error && (
-          <div>
-            <p>{error}</p>
-          </div>
+          <Box sx={{ mt: 3 }}>
+            <Alert severity="error">{error}</Alert>
+          </Box>
         )}
-      </div>
-      
-    </div>
+      </Paper>
+    </Box>
   );
 }
-
-export default ImcForm;
