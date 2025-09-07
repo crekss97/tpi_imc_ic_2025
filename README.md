@@ -1,30 +1,48 @@
-# React + TypeScript + Vite
+# Proyecto IMC - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación frontend desarrollada con **React + Vite + TypeScript** para calcular el **Índice de Masa Corporal (IMC)**.  
+Este proyecto forma parte del trabajo práctico integrador de la cátedra *Ingeniería y Calidad de Software - UTN FRVM*.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requisitos previos
 
-## Expanding the ESLint configuration
+- [Node.js](https://nodejs.org/) (v18 o superior recomendado)
+- [Git](https://git-scm.com/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## Instalación y ejecución en local
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/crekss97/tpi_imc_ic_2025.git
+   cd tpi_imc_ic_2025
+   ```
+2. Instalar dependencias:
+    ```bash
+   npm install
+   ```
+3. Ejecutar en modo desarrollo
+   ```bash
+   npm run dev
+   ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Despliegue de la Aplicación
+
+Se utilizó Vercel para el despliegue de la Aplicación
+
+Pasos para el despliegue de una aplicación en Vercel
+
+1. Crear una cuenta en [Vercel](https://vercel.com/signup)
+2. Importar este repositorio desde GitHub.
+3. Configuraciones a realizar
+- Build Command: npm run build
+- Output Directory: .public
+- Install Command:  npm install
+- Development Command: none
+4. Guardar y desplegar.
+
+##  Colaboración en equipo
+- La rama principal de despliegue es main.
+- Se utiliza la rama test para la subida de cambios, luego se pasan a la rama main mediante un merge.
