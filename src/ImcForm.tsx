@@ -25,6 +25,8 @@ export default function ImcForm() {
 
     const alturaNum = parseFloat(altura);
     const pesoNum = parseFloat(peso);
+    const API_URL = import.meta.env.VITE_VERCEL_URL;
+
 
     if (isNaN(alturaNum) || isNaN(pesoNum) || alturaNum <= 0 || pesoNum <= 0) {
       setError("Por favor, ingresa valores válidos (positivos y numéricos).");
@@ -33,7 +35,7 @@ export default function ImcForm() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/imc/calcular", {
+      const response = await axios.post(`${API_URL}/imc/calcular`, {
         altura: alturaNum,
         peso: pesoNum,
       });
