@@ -115,8 +115,7 @@ export default function ImcForm({ onCalculoRealizado }: ImcFormProps) {
     }
 
     try {
-      // const API_URL = import.meta.env.VITE_VERCEL_URL;
-      const API_URL = 'http://localhost:3000';
+      const API_URL = import.meta.env.VITE_VERCEL_URL;
 
       // POST /imc/calcular con JWT token
       const response = await axios.post(
