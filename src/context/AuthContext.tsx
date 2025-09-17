@@ -32,39 +32,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  //const API_URL = import.meta.env.VITE_VERCEL_URL;
-  const API_URL = "http://localhost:3000";
-
-  //   const login = async (email: string, password: string): Promise<boolean> => {
-  //     setLoading(true);
-  //     try {
-  //       // POST /auth/login (Iniciar Sesion)
-  //       const response = await axios.post(`${API_URL}/auth/login`, {
-  //         email,
-  //         password,
-  //       });
-
-  //       const { token: jwtToken, user: userData } = response.data;
-
-  //       // Guardar token y usuario
-  //       setToken(jwtToken);
-  //       setUser(userData);
-
-  //       // Guardar en localStorage
-  //       localStorage.setItem("token", jwtToken);
-  //       localStorage.setItem("user", JSON.stringify(userData));
-
-  //       // Configurar axios para futuras requests
-  //       axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
-
-  //       return true;
-  //     } catch (error) {
-  //       console.error("Error en login:", error);
-  //       return false;
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  const API_URL = import.meta.env.VITE_VERCEL_URL;
 
   const login = async (email: string, password: string): Promise<boolean> => {
     setLoading(true);
