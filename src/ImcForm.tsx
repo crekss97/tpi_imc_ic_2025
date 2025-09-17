@@ -7,12 +7,15 @@ import {
   Typography,
   Alert,
   Paper,
+  Chip,
 } from "@mui/material";
+import { LogoutOutlined } from "@mui/icons-material";
 import {
   validateImcForm,
   validatePeso,
   validateAltura,
 } from "./utils/validation";
+import { useAuth } from "./context/AuthContext";
 
 interface ImcResult {
   imc: number;
@@ -25,7 +28,7 @@ interface FormErrors {
 }
 
 interface ImcFormProps {
-  onCalculoRealizado?: () => void; // Callback para notificar que se hizo un cálculo
+  onCalculoRealizado?: () => void;
 }
 
 export default function ImcForm({ onCalculoRealizado }: ImcFormProps) {
@@ -35,6 +38,8 @@ export default function ImcForm({ onCalculoRealizado }: ImcFormProps) {
   const [error, setError] = useState("");
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [calculando, setCalculando] = useState(false);
+
+  const { user, token, logout } = useAuth();
 
   // Validación en tiempo real para altura
   const handleAlturaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,14 +108,29 @@ export default function ImcForm({ onCalculoRealizado }: ImcFormProps) {
       return;
     }
 
-    try {
-      const API_URL = import.meta.env.VITE_VERCEL_URL;
+    if (!token) {
+      setError("No tienes autorización. Por favor, inicia sesión nuevamente.");
+      setCalculando(false);
+      return;
+    }
 
-      // Calcular y guardar automáticamente
-      const response = await axios.post(`${API_URL}/imc/calcular`, {
-        altura: parseFloat(altura),
-        peso: parseFloat(peso),
-      });
+    try {
+      // const API_URL = import.meta.env.VITE_VERCEL_URL;
+      const API_URL = 'http://localhost:3000';
+
+      // POST /imc/calcular con JWT token
+      const response = await axios.post(
+        `${API_URL}/imc/calcular`,
+        {
+          altura: parseFloat(altura),
+          peso: parseFloat(peso),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setResultado(response.data);
       setError("");
@@ -122,9 +142,27 @@ export default function ImcForm({ onCalculoRealizado }: ImcFormProps) {
       }
     } catch (err) {
       console.error("Error calculating IMC:", err);
-      setError(
-        "Error al calcular el IMC. Verifica si el backend está funcionando correctamente."
-      );
+
+      if (axios.isAxiosError(err)) {
+        const status = err.response?.status;
+        if (status === 401) {
+          setError(
+            "Tu sesión ha expirado. Por favor, inicia sesión nuevamente."
+          );
+          setTimeout(() => logout(), 2000);
+        } else if (status === 403) {
+          setError("No tienes permisos para realizar esta acción.");
+        } else if (status !== undefined && status >= 500) {
+          setError("Error del servidor. Inténtalo nuevamente.");
+        } else if (status !== undefined) {
+          setError("Error al calcular el IMC. Verifica los datos ingresados.");
+        } else {
+          setError("Error de conexión. Verifica tu conexión a internet.");
+        }
+      } else {
+        setError("Error de conexión. Verifica tu conexión a internet.");
+      }
+
       setResultado(null);
     } finally {
       setCalculando(false);
@@ -137,9 +175,38 @@ export default function ImcForm({ onCalculoRealizado }: ImcFormProps) {
 
   return (
     <Paper elevation={4} sx={{ p: 3, borderRadius: 3 }}>
-      <Typography variant="h5" align="center" gutterBottom>
-        Nueva Medición
-      </Typography>
+      {/* Header con usuario */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 2,
+        }}
+      >
+        <Box>
+          <Typography variant="h5" gutterBottom>
+            Nueva Medición
+          </Typography>
+          {user && (
+            <Chip
+              label={`${user.nombre} ${user.apellido}`}
+              color="primary"
+              variant="outlined"
+              size="small"
+            />
+          )}
+        </Box>
+
+        <Button
+          startIcon={<LogoutOutlined />}
+          onClick={logout}
+          color="inherit"
+          size="small"
+        >
+          Salir
+        </Button>
+      </Box>
 
       <Box component="form" onSubmit={handleSubmit} noValidate>
         <TextField
