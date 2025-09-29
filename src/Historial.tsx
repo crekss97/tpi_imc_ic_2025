@@ -35,8 +35,8 @@ export default function Historial({ shouldRefresh }: HistorialProps) {
   const [error, setError] = useState("");
 
   const { token, logout } = useAuth();
-  const API_URL = import.meta.env.VITE_VERCEL_URL;
-
+  // const API_URL = import.meta.env.VITE_VERCEL_URL;
+  const API_URL = 'http://localhost:3001';
   // Cargar historial
   const cargarHistorial = async () => {
     if (!token) {
@@ -120,7 +120,7 @@ export default function Historial({ shouldRefresh }: HistorialProps) {
   };
 
   return (
-    <Paper elevation={4} sx={{ p: 3, borderRadius: 3 }}>
+    <Paper elevation={4} sx={{ p: 3, borderRadius: 3, minWidth:'300px' }}>
       <Box
         sx={{
           display: "flex",

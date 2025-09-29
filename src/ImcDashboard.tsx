@@ -1,13 +1,26 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 import { useAuth } from "./context/AuthContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-interface ImcData {
-  fecha: string;
-  imc: number;
-  peso: number;
-}
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 
 interface CalculoIMC {
   id: number;
@@ -24,7 +37,7 @@ export default function ImcDashboard() {
   const [error, setError] = useState("");
 
   const { token, logout } = useAuth();
-  const API_URL = import.meta.env.VITE_VERCEL_URL;
+  const API_URL = "http://localhost:3001";
 
   const cargarGrafico = async () => {
     if (!token) {
@@ -50,7 +63,7 @@ export default function ImcDashboard() {
         peso: item.peso,
         imc: item.imc,
         categoria: item.categoria,
-        fecha: new Date(item.createdAt).toLocaleDateString("es-AR"), 
+        fecha: new Date(item.createdAt).toLocaleDateString("es-AR"),
       }));
 
       setGrafico(data);
@@ -78,33 +91,134 @@ export default function ImcDashboard() {
     cargarGrafico();
   }, []);
 
+  // --- Cálculos para el dashboard ---
+  const promedioIMC =
+    grafico.length > 0
+      ? (
+          grafico.reduce((acc, item) => acc + item.imc, 0) / grafico.length
+        ).toFixed(2)
+      : null;
+
+  // Conteo de categorías
+  const conteoCategorias = grafico.reduce(
+    (acc: Record<string, number>, item) => {
+      acc[item.categoria] = (acc[item.categoria] || 0) + 1;
+      return acc;
+    },
+    {}
+  );
+
+  const dataCategorias = Object.keys(conteoCategorias).map((cat) => ({
+    name: cat,
+    value: conteoCategorias[cat],
+  }));
+
+  const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff7f7f"];
+
   return (
-    <div style={{ width: "100%", height: 400 }}>
-      {loading && <p>Cargando datos...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <Box sx={{ width: "100%", p: 3 }}>
+      {loading && (
+        <Box display="flex" justifyContent="center">
+          <CircularProgress />
+        </Box>
+      )}
+
+      {error && (
+        <Typography color="error" textAlign="center" mb={2}>
+          {error}
+        </Typography>
+      )}
 
       {!loading && !error && (
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart
-            data={grafico}
-            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="fecha" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="imc"
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
-              name="IMC"
-            />
-            <Line type="monotone" dataKey="peso" stroke="#82ca9d" name="Peso (kg)" />
-          </LineChart>
-        </ResponsiveContainer>
+        <Box display="flex" flexDirection="column" gap={4}>
+          {/* Promedio IMC */}
+          <Card>
+            <CardContent sx={{ textAlign: "center" }}>
+              <Typography variant="h6" gutterBottom>
+                Promedio de IMC
+              </Typography>
+              {promedioIMC ? (
+                <Typography
+                  variant="h3"
+                  fontWeight="bold"
+                  color="primary"
+                >
+                  {promedioIMC}
+                </Typography>
+              ) : (
+                <Typography>No hay cálculos</Typography>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Variación de IMC */}
+          <Card sx={{ height: 350 }}>
+            <CardContent sx={{ height: "100%" }}>
+              <Typography variant="h6" align="center" gutterBottom>
+                Variación del IMC
+              </Typography>
+              <ResponsiveContainer width="100%" height="90%">
+                <LineChart
+                  data={grafico}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="fecha" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="imc"
+                    stroke="#8884d8"
+                    activeDot={{ r: 8 }}
+                    name="IMC"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          {/* Conteo por categoría */}
+          <Card sx={{ height: 500 }}>
+            <CardContent sx={{ height: "100%" }}>
+              <Typography variant="h6" align="center" gutterBottom>
+                Distribución por Categoría
+              </Typography>
+              <ResponsiveContainer width="100%" height="85%">
+                <PieChart>
+                  <Pie
+                    data={dataCategorias}
+                    cx="50%"
+                    cy="45%"
+                    outerRadius={120}
+                    fill="#8884d8"
+                    dataKey="value"
+                    label={(entry: any) => {
+                      const name = entry?.name ?? "";
+                      const percent =
+                        typeof entry?.percent === "number"
+                          ? Math.round(entry.percent * 100)
+                          : 0;
+                      return `${name} ${percent}%`;
+                    }}
+                    labelLine={false}
+                  >
+                    {dataCategorias.map((_, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  {/* <Legend /> */}
+                </PieChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }
