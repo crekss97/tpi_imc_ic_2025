@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import AuthContainer from './components/AuthContainer';
 import ImcForm from './ImcForm';
 import Historial from './Historial';
+import ImcDashboard from './ImcDashboard';
 
 const theme = createTheme({
   palette: {
@@ -56,6 +57,10 @@ function AppContent() {
           {/* Columna derecha: Historial */}
           <Box sx={{ flex: 1, minWidth: 0 }}>
             <Historial shouldRefresh={refreshHistorial} />
+          </Box>
+
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <ImcDashboard />
           </Box>
 
         </Box>
