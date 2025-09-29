@@ -37,7 +37,8 @@ export default function ImcDashboard() {
   const [error, setError] = useState("");
 
   const { token, logout } = useAuth();
-  const API_URL = "http://localhost:3001";
+
+  const API_URL = import.meta.env.VITE_VERCEL_URL;
 
   const cargarGrafico = async () => {
     if (!token) {
@@ -71,16 +72,25 @@ export default function ImcDashboard() {
       console.error("Error cargando historial:", err);
 
       if (axios.isAxiosError(err)) {
-        if (err.response?.status === 401) {
-          setError("Tu sesión ha expirado");
-          setTimeout(() => logout(), 2000);
-        } else if (err.response?.status === 403) {
-          setError("No tienes permisos para ver el historial");
+        // Primero, revisa si hay una RESPUESTA del servidor
+        if (err.response) {
+          // AHORA sí, maneja los errores según el status code
+          if (err.response.status === 401) {
+            setError("Tu sesión ha expirado");
+            setTimeout(() => logout(), 2000);
+          } else if (err.response.status === 403) {
+            setError("No tienes permisos para ver el historial");
+          } else {
+            // Para cualquier otro error con respuesta (500, 404, etc.)
+            setError("Error al cargar el historial");
+          }
         } else {
-          setError("Error al cargar el historial");
+          // Si es un AxiosError pero NO HAY RESPUESTA, es un error de red
+          setError("Error de conexión");
         }
       } else {
-        setError("Error de conexión");
+        // Si no es un error de Axios, es un error inesperado (ej. en el .map())
+        setError("Ocurrió un error inesperado");
       }
     } finally {
       setLoading(false);
@@ -138,11 +148,7 @@ export default function ImcDashboard() {
                 Promedio de IMC
               </Typography>
               {promedioIMC ? (
-                <Typography
-                  variant="h3"
-                  fontWeight="bold"
-                  color="primary"
-                >
+                <Typography variant="h3" fontWeight="bold" color="primary">
                   {promedioIMC}
                 </Typography>
               ) : (

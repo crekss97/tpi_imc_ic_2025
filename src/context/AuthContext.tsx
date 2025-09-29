@@ -8,7 +8,7 @@ export interface User {
   email: string;
 }
 
-interface AuthContextType {
+export interface AuthContextType {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;

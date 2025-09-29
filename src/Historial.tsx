@@ -35,8 +35,9 @@ export default function Historial({ shouldRefresh }: HistorialProps) {
   const [error, setError] = useState("");
 
   const { token, logout } = useAuth();
-  // const API_URL = import.meta.env.VITE_VERCEL_URL;
-  const API_URL = 'http://localhost:3001';
+  
+  const API_URL = import.meta.env.VITE_VERCEL_URL;
+  
   // Cargar historial
   const cargarHistorial = async () => {
     if (!token) {
