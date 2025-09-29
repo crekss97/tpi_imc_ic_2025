@@ -113,11 +113,12 @@ describe("AuthContext", () => {
 
   const { result } = renderHook(() => useAuth(), { wrapper });
 
-
-//   expect(registerResult).toBe(true);
   expect(result.current.user).toEqual(fakeUser);
   expect(result.current.isAuthenticated).toBe(true);
 
+
+
+  
   // Verificar llamadas en orden
   expect(mockedAxios.post).toHaveBeenNthCalledWith(
     1,
