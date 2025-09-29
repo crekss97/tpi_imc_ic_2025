@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/SplitText.tsx</title>
+    <title>Code coverage report for src/Historial.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/components</a> SplitText.tsx</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> Historial.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/209</span>
+                <span class='fraction'>0/213</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/209</span>
+                <span class='fraction'>0/213</span>
             </div>
         
             
@@ -272,7 +272,11 @@
 <a name='L207'></a><a href='#L207'>207</a>
 <a name='L208'></a><a href='#L208'>208</a>
 <a name='L209'></a><a href='#L209'>209</a>
-<a name='L210'></a><a href='#L210'>210</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -481,215 +485,223 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import React, { useRef, useEffect, useState } from 'react';</span></span></span>
-<span class="cstat-no" title="statement not covered" >import { gsap } from 'gsap';</span>
-<span class="cstat-no" title="statement not covered" >import { ScrollTrigger } from 'gsap/ScrollTrigger';</span>
-<span class="cstat-no" title="statement not covered" >import { SplitText as GSAPSplitText } from 'gsap/SplitText';</span>
-<span class="cstat-no" title="statement not covered" >import { useGSAP } from '@gsap/react';</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { useState, useEffect } from "react";</span></span></span>
+<span class="cstat-no" title="statement not covered" >import {</span>
+<span class="cstat-no" title="statement not covered" >  Box,</span>
+<span class="cstat-no" title="statement not covered" >  Typography,</span>
+<span class="cstat-no" title="statement not covered" >  Paper,</span>
+<span class="cstat-no" title="statement not covered" >  List,</span>
+<span class="cstat-no" title="statement not covered" >  ListItem,</span>
+<span class="cstat-no" title="statement not covered" >  ListItemText,</span>
+<span class="cstat-no" title="statement not covered" >  Divider,</span>
+<span class="cstat-no" title="statement not covered" >  Chip,</span>
+<span class="cstat-no" title="statement not covered" >  Alert,</span>
+<span class="cstat-no" title="statement not covered" >  CircularProgress,</span>
+<span class="cstat-no" title="statement not covered" >  IconButton,</span>
+<span class="cstat-no" title="statement not covered" >} from "@mui/material";</span>
+<span class="cstat-no" title="statement not covered" >import { Refresh as RefreshIcon } from "@mui/icons-material";</span>
+<span class="cstat-no" title="statement not covered" >import axios from "axios";</span>
+<span class="cstat-no" title="statement not covered" >import { useAuth } from "./context/AuthContext";</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >export interface SplitTextProps {</span>
-<span class="cstat-no" title="statement not covered" >  text: string;</span>
-<span class="cstat-no" title="statement not covered" >  className?: string;</span>
-<span class="cstat-no" title="statement not covered" >  delay?: number;</span>
-<span class="cstat-no" title="statement not covered" >  duration?: number;</span>
-<span class="cstat-no" title="statement not covered" >  ease?: string | ((t: number) =&gt; number);</span>
-<span class="cstat-no" title="statement not covered" >  splitType?: 'chars' | 'words' | 'lines' | 'words, chars';</span>
-<span class="cstat-no" title="statement not covered" >  from?: gsap.TweenVars;</span>
-<span class="cstat-no" title="statement not covered" >  to?: gsap.TweenVars;</span>
-<span class="cstat-no" title="statement not covered" >  threshold?: number;</span>
-<span class="cstat-no" title="statement not covered" >  rootMargin?: string;</span>
-<span class="cstat-no" title="statement not covered" >  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';</span>
-<span class="cstat-no" title="statement not covered" >  textAlign?: React.CSSProperties['textAlign'];</span>
-<span class="cstat-no" title="statement not covered" >  onLetterAnimationComplete?: () =&gt; void;</span>
+<span class="cstat-no" title="statement not covered" >interface CalculoIMC {</span>
+<span class="cstat-no" title="statement not covered" >  id: number;</span>
+<span class="cstat-no" title="statement not covered" >  altura: number;</span>
+<span class="cstat-no" title="statement not covered" >  peso: number;</span>
+<span class="cstat-no" title="statement not covered" >  imc: number;</span>
+<span class="cstat-no" title="statement not covered" >  categoria: string;</span>
+<span class="cstat-no" title="statement not covered" >  fecha: string;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >const SplitText: React.FC&lt;SplitTextProps&gt; = ({</span>
-<span class="cstat-no" title="statement not covered" >  text,</span>
-<span class="cstat-no" title="statement not covered" >  className = '',</span>
-<span class="cstat-no" title="statement not covered" >  delay = 100,</span>
-<span class="cstat-no" title="statement not covered" >  duration = 0.6,</span>
-<span class="cstat-no" title="statement not covered" >  ease = 'power3.out',</span>
-<span class="cstat-no" title="statement not covered" >  splitType = 'chars',</span>
-<span class="cstat-no" title="statement not covered" >  from = { opacity: 0, y: 40 },</span>
-<span class="cstat-no" title="statement not covered" >  to = { opacity: 1, y: 0 },</span>
-<span class="cstat-no" title="statement not covered" >  threshold = 0.1,</span>
-<span class="cstat-no" title="statement not covered" >  rootMargin = '-100px',</span>
-<span class="cstat-no" title="statement not covered" >  textAlign = 'center',</span>
-<span class="cstat-no" title="statement not covered" >  tag = 'p',</span>
-<span class="cstat-no" title="statement not covered" >  onLetterAnimationComplete</span>
-<span class="cstat-no" title="statement not covered" >}) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const ref = useRef&lt;HTMLParagraphElement&gt;(null);</span>
-<span class="cstat-no" title="statement not covered" >  const animationCompletedRef = useRef(false);</span>
-<span class="cstat-no" title="statement not covered" >  const [fontsLoaded, setFontsLoaded] = useState&lt;boolean&gt;(false);</span>
+<span class="cstat-no" title="statement not covered" >interface HistorialProps {</span>
+<span class="cstat-no" title="statement not covered" >  shouldRefresh?: number;</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (document.fonts.status === 'loaded') {</span>
-<span class="cstat-no" title="statement not covered" >      setFontsLoaded(true);</span>
-<span class="cstat-no" title="statement not covered" >    } else {</span>
-<span class="cstat-no" title="statement not covered" >      document.fonts.ready.then(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        setFontsLoaded(true);</span>
-<span class="cstat-no" title="statement not covered" >      });</span>
+<span class="cstat-no" title="statement not covered" >export default function Historial({ shouldRefresh }: HistorialProps) {</span>
+<span class="cstat-no" title="statement not covered" >  const [historial, setHistorial] = useState&lt;CalculoIMC[]&gt;([]);</span>
+<span class="cstat-no" title="statement not covered" >  const [loading, setLoading] = useState(false);</span>
+<span class="cstat-no" title="statement not covered" >  const [error, setError] = useState("");</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const { token, logout } = useAuth();</span>
+<span class="cstat-no" title="statement not covered" >  </span>
+<span class="cstat-no" title="statement not covered" >  const API_URL = import.meta.env.VITE_VERCEL_URL;</span>
+<span class="cstat-no" title="statement not covered" >  </span>
+<span class="cstat-no" title="statement not covered" >  // Cargar historial</span>
+<span class="cstat-no" title="statement not covered" >  const cargarHistorial = async () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!token) {</span>
+<span class="cstat-no" title="statement not covered" >      setError("No tienes autorización para ver el historial");</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >  }, []);</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  useGSAP(</span>
-<span class="cstat-no" title="statement not covered" >    () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (!ref.current || !text || !fontsLoaded) return;</span>
+<span class="cstat-no" title="statement not covered" >    setLoading(true);</span>
+<span class="cstat-no" title="statement not covered" >    setError("");</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      const el = ref.current as HTMLElement &amp; {</span>
-<span class="cstat-no" title="statement not covered" >        _rbsplitInstance?: GSAPSplitText;</span>
-<span class="cstat-no" title="statement not covered" >      };</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      // GET /imc/historial (Traer todo el historial)</span>
+<span class="cstat-no" title="statement not covered" >      const response = await axios.get(`${API_URL}/imc`, {</span>
+<span class="cstat-no" title="statement not covered" >        headers: {</span>
+<span class="cstat-no" title="statement not covered" >          Authorization: `Bearer ${token}`,</span>
+<span class="cstat-no" title="statement not covered" >        },</span>
+<span class="cstat-no" title="statement not covered" >      });</span>
+<span class="cstat-no" title="statement not covered" >      // Transformar el array del backend a lo que espera el frontend</span>
+<span class="cstat-no" title="statement not covered" >      const data: CalculoIMC[] = (</span>
+<span class="cstat-no" title="statement not covered" >        Array.isArray(response.data) ? response.data : []</span>
+<span class="cstat-no" title="statement not covered" >      ).map((item) =&gt; ({</span>
+<span class="cstat-no" title="statement not covered" >        id: item.id,</span>
+<span class="cstat-no" title="statement not covered" >        altura: item.altura,</span>
+<span class="cstat-no" title="statement not covered" >        peso: item.peso,</span>
+<span class="cstat-no" title="statement not covered" >        imc: item.imc,</span>
+<span class="cstat-no" title="statement not covered" >        categoria: item.categoria,</span>
+<span class="cstat-no" title="statement not covered" >        fecha: item.createdAt, // &lt;- aquí renombramos createdAt a fecha</span>
+<span class="cstat-no" title="statement not covered" >      }));</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      if (el._rbsplitInstance) {</span>
-<span class="cstat-no" title="statement not covered" >        try {</span>
-<span class="cstat-no" title="statement not covered" >          el._rbsplitInstance.revert();</span>
-<span class="cstat-no" title="statement not covered" >        } catch (_) {}</span>
-<span class="cstat-no" title="statement not covered" >        el._rbsplitInstance = undefined;</span>
-<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >      setHistorial(data);</span>
+<span class="cstat-no" title="statement not covered" >    } catch (err) {</span>
+<span class="cstat-no" title="statement not covered" >      console.error("Error cargando historial:", err);</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      const startPct = (1 - threshold) * 100;</span>
-<span class="cstat-no" title="statement not covered" >      const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);</span>
-<span class="cstat-no" title="statement not covered" >      const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;</span>
-<span class="cstat-no" title="statement not covered" >      const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';</span>
-<span class="cstat-no" title="statement not covered" >      const sign =</span>
-<span class="cstat-no" title="statement not covered" >        marginValue === 0</span>
-<span class="cstat-no" title="statement not covered" >          ? ''</span>
-<span class="cstat-no" title="statement not covered" >          : marginValue &lt; 0</span>
-<span class="cstat-no" title="statement not covered" >            ? `-=${Math.abs(marginValue)}${marginUnit}`</span>
-<span class="cstat-no" title="statement not covered" >            : `+=${marginValue}${marginUnit}`;</span>
-<span class="cstat-no" title="statement not covered" >      const start = `top ${startPct}%${sign}`;</span>
-<span class="cstat-no" title="statement not covered" >      let targets: Element[] = [];</span>
-<span class="cstat-no" title="statement not covered" >      const assignTargets = (self: GSAPSplitText) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (splitType.includes('chars') &amp;&amp; self.chars.length) targets = self.chars;</span>
-<span class="cstat-no" title="statement not covered" >        if (!targets.length &amp;&amp; splitType.includes('words') &amp;&amp; self.words.length) targets = self.words;</span>
-<span class="cstat-no" title="statement not covered" >        if (!targets.length &amp;&amp; splitType.includes('lines') &amp;&amp; self.lines.length) targets = self.lines;</span>
-<span class="cstat-no" title="statement not covered" >        if (!targets.length) targets = self.chars || self.words || self.lines;</span>
-<span class="cstat-no" title="statement not covered" >      };</span>
-<span class="cstat-no" title="statement not covered" >      const splitInstance = new GSAPSplitText(el, {</span>
-<span class="cstat-no" title="statement not covered" >        type: splitType,</span>
-<span class="cstat-no" title="statement not covered" >        smartWrap: true,</span>
-<span class="cstat-no" title="statement not covered" >        autoSplit: splitType === 'lines',</span>
-<span class="cstat-no" title="statement not covered" >        linesClass: 'split-line',</span>
-<span class="cstat-no" title="statement not covered" >        wordsClass: 'split-word',</span>
-<span class="cstat-no" title="statement not covered" >        charsClass: 'split-char',</span>
-<span class="cstat-no" title="statement not covered" >        reduceWhiteSpace: false,</span>
-<span class="cstat-no" title="statement not covered" >        onSplit: (self: GSAPSplitText) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          assignTargets(self);</span>
-<span class="cstat-no" title="statement not covered" >          return gsap.fromTo(</span>
-<span class="cstat-no" title="statement not covered" >            targets,</span>
-<span class="cstat-no" title="statement not covered" >            { ...from },</span>
-<span class="cstat-no" title="statement not covered" >            {</span>
-<span class="cstat-no" title="statement not covered" >              ...to,</span>
-<span class="cstat-no" title="statement not covered" >              duration,</span>
-<span class="cstat-no" title="statement not covered" >              ease,</span>
-<span class="cstat-no" title="statement not covered" >              stagger: delay / 1000,</span>
-<span class="cstat-no" title="statement not covered" >              scrollTrigger: {</span>
-<span class="cstat-no" title="statement not covered" >                trigger: el,</span>
-<span class="cstat-no" title="statement not covered" >                start,</span>
-<span class="cstat-no" title="statement not covered" >                once: true,</span>
-<span class="cstat-no" title="statement not covered" >                fastScrollEnd: true,</span>
-<span class="cstat-no" title="statement not covered" >                anticipatePin: 0.4</span>
-<span class="cstat-no" title="statement not covered" >              },</span>
-<span class="cstat-no" title="statement not covered" >              onComplete: () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                animationCompletedRef.current = true;</span>
-<span class="cstat-no" title="statement not covered" >                onLetterAnimationComplete?.();</span>
-<span class="cstat-no" title="statement not covered" >              },</span>
-<span class="cstat-no" title="statement not covered" >              willChange: 'transform, opacity',</span>
-<span class="cstat-no" title="statement not covered" >              force3D: true</span>
-<span class="cstat-no" title="statement not covered" >            }</span>
-<span class="cstat-no" title="statement not covered" >          );</span>
+<span class="cstat-no" title="statement not covered" >      if (axios.isAxiosError(err)) {</span>
+<span class="cstat-no" title="statement not covered" >        if (err.response?.status === 401) {</span>
+<span class="cstat-no" title="statement not covered" >          setError("Tu sesión ha expirado");</span>
+<span class="cstat-no" title="statement not covered" >          setTimeout(() =&gt; logout(), 2000);</span>
+<span class="cstat-no" title="statement not covered" >        } else if (err.response?.status === 403) {</span>
+<span class="cstat-no" title="statement not covered" >          setError("No tienes permisos para ver el historial");</span>
+<span class="cstat-no" title="statement not covered" >        } else {</span>
+<span class="cstat-no" title="statement not covered" >          setError("Error al cargar el historial");</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-<span class="cstat-no" title="statement not covered" >      });</span>
-<span class="cstat-no" title="statement not covered" >      el._rbsplitInstance = splitInstance;</span>
-<span class="cstat-no" title="statement not covered" >      return () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        ScrollTrigger.getAll().forEach(st =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          if (st.trigger === el) st.kill();</span>
-<span class="cstat-no" title="statement not covered" >        });</span>
-<span class="cstat-no" title="statement not covered" >        try {</span>
-<span class="cstat-no" title="statement not covered" >          splitInstance.revert();</span>
-<span class="cstat-no" title="statement not covered" >        } catch (_) {}</span>
-<span class="cstat-no" title="statement not covered" >        el._rbsplitInstance = undefined;</span>
-<span class="cstat-no" title="statement not covered" >      };</span>
-<span class="cstat-no" title="statement not covered" >    },</span>
-<span class="cstat-no" title="statement not covered" >    {</span>
-<span class="cstat-no" title="statement not covered" >      dependencies: [</span>
-<span class="cstat-no" title="statement not covered" >        text,</span>
-<span class="cstat-no" title="statement not covered" >        delay,</span>
-<span class="cstat-no" title="statement not covered" >        duration,</span>
-<span class="cstat-no" title="statement not covered" >        ease,</span>
-<span class="cstat-no" title="statement not covered" >        splitType,</span>
-<span class="cstat-no" title="statement not covered" >        JSON.stringify(from),</span>
-<span class="cstat-no" title="statement not covered" >        JSON.stringify(to),</span>
-<span class="cstat-no" title="statement not covered" >        threshold,</span>
-<span class="cstat-no" title="statement not covered" >        rootMargin,</span>
-<span class="cstat-no" title="statement not covered" >        fontsLoaded,</span>
-<span class="cstat-no" title="statement not covered" >        onLetterAnimationComplete</span>
-<span class="cstat-no" title="statement not covered" >      ],</span>
-<span class="cstat-no" title="statement not covered" >      scope: ref</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >  );</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const renderTag = () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const style: React.CSSProperties = {</span>
-<span class="cstat-no" title="statement not covered" >      textAlign,</span>
-<span class="cstat-no" title="statement not covered" >      overflow: 'hidden',</span>
-<span class="cstat-no" title="statement not covered" >      display: 'inline-block',</span>
-<span class="cstat-no" title="statement not covered" >      whiteSpace: 'normal',</span>
-<span class="cstat-no" title="statement not covered" >      wordWrap: 'break-word',</span>
-<span class="cstat-no" title="statement not covered" >      willChange: 'transform, opacity'</span>
-<span class="cstat-no" title="statement not covered" >    };</span>
-<span class="cstat-no" title="statement not covered" >    const classes = `split-parent ${className}`;</span>
-<span class="cstat-no" title="statement not covered" >    switch (tag) {</span>
-<span class="cstat-no" title="statement not covered" >      case 'h1':</span>
-<span class="cstat-no" title="statement not covered" >        return (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h1 ref={ref} style={style} className={classes}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {text}</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h1&gt;</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
-<span class="cstat-no" title="statement not covered" >      case 'h2':</span>
-<span class="cstat-no" title="statement not covered" >        return (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h2 ref={ref} style={style} className={classes}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {text}</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h2&gt;</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
-<span class="cstat-no" title="statement not covered" >      case 'h3':</span>
-<span class="cstat-no" title="statement not covered" >        return (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h3 ref={ref} style={style} className={classes}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {text}</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h3&gt;</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
-<span class="cstat-no" title="statement not covered" >      case 'h4':</span>
-<span class="cstat-no" title="statement not covered" >        return (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h4 ref={ref} style={style} className={classes}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {text}</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h4&gt;</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
-<span class="cstat-no" title="statement not covered" >      case 'h5':</span>
-<span class="cstat-no" title="statement not covered" >        return (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h5 ref={ref} style={style} className={classes}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {text}</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h5&gt;</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
-<span class="cstat-no" title="statement not covered" >      case 'h6':</span>
-<span class="cstat-no" title="statement not covered" >        return (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h6 ref={ref} style={style} className={classes}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {text}</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h6&gt;</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
-<span class="cstat-no" title="statement not covered" >      default:</span>
-<span class="cstat-no" title="statement not covered" >        return (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p ref={ref} style={style} className={classes}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {text}</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
+<span class="cstat-no" title="statement not covered" >      } else {</span>
+<span class="cstat-no" title="statement not covered" >        setError("Error de conexión");</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >    } finally {</span>
+<span class="cstat-no" title="statement not covered" >      setLoading(false);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
-<span class="cstat-no" title="statement not covered" >  return renderTag();</span>
-<span class="cstat-no" title="statement not covered" >};</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >export default SplitText;</span>
+<span class="cstat-no" title="statement not covered" >  // Cargar al montar y cuando cambie shouldRefresh</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (token) {</span>
+<span class="cstat-no" title="statement not covered" >      cargarHistorial();</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  }, [shouldRefresh, token]);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const formatearFecha = (fecha: string) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return new Date(fecha).toLocaleDateString("es-AR", {</span>
+<span class="cstat-no" title="statement not covered" >      day: "2-digit",</span>
+<span class="cstat-no" title="statement not covered" >      month: "2-digit",</span>
+<span class="cstat-no" title="statement not covered" >      year: "2-digit",</span>
+<span class="cstat-no" title="statement not covered" >      hour: "2-digit",</span>
+<span class="cstat-no" title="statement not covered" >      minute: "2-digit",</span>
+<span class="cstat-no" title="statement not covered" >    });</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const getColorCategoria = (categoria: string) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    switch (categoria.toLowerCase()) {</span>
+<span class="cstat-no" title="statement not covered" >      case "bajo peso":</span>
+<span class="cstat-no" title="statement not covered" >        return "info";</span>
+<span class="cstat-no" title="statement not covered" >      case "normal":</span>
+<span class="cstat-no" title="statement not covered" >        return "success";</span>
+<span class="cstat-no" title="statement not covered" >      case "sobrepeso":</span>
+<span class="cstat-no" title="statement not covered" >        return "warning";</span>
+<span class="cstat-no" title="statement not covered" >      case "obesidad":</span>
+<span class="cstat-no" title="statement not covered" >        return "error";</span>
+<span class="cstat-no" title="statement not covered" >      default:</span>
+<span class="cstat-no" title="statement not covered" >        return "default";</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
+<span class="cstat-no" title="statement not covered" >    &lt;Paper elevation={4} sx={{ p: 3, borderRadius: 3, minWidth:'300px' }}&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;Box</span>
+<span class="cstat-no" title="statement not covered" >        sx={{</span>
+<span class="cstat-no" title="statement not covered" >          display: "flex",</span>
+<span class="cstat-no" title="statement not covered" >          alignItems: "center",</span>
+<span class="cstat-no" title="statement not covered" >          justifyContent: "space-between",</span>
+<span class="cstat-no" title="statement not covered" >          mb: 2,</span>
+<span class="cstat-no" title="statement not covered" >        }}</span>
+<span class="cstat-no" title="statement not covered" >      &gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Typography variant="h5"&gt;Mi Historial ({historial.length})&lt;/Typography&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;IconButton</span>
+<span class="cstat-no" title="statement not covered" >          onClick={cargarHistorial}</span>
+<span class="cstat-no" title="statement not covered" >          disabled={loading || !token}</span>
+<span class="cstat-no" title="statement not covered" >          color="primary"</span>
+<span class="cstat-no" title="statement not covered" >          size="small"</span>
+<span class="cstat-no" title="statement not covered" >        &gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;RefreshIcon /&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/IconButton&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/Box&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      {/* Loading */}</span>
+<span class="cstat-no" title="statement not covered" >      {loading &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Box sx={{ display: "flex", justifyContent: "center", p: 2 }}&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;CircularProgress size={20} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Typography variant="body2" sx={{ ml: 1 }}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            Cargando tu historial...</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Typography&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/Box&gt;</span>
+<span class="cstat-no" title="statement not covered" >      )}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      {/* Error */}</span>
+<span class="cstat-no" title="statement not covered" >      {error &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Alert severity="error" sx={{ mb: 2 }}&gt;</span>
+<span class="cstat-no" title="statement not covered" >          {error}</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/Alert&gt;</span>
+<span class="cstat-no" title="statement not covered" >      )}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      {/* Lista */}</span>
+<span class="cstat-no" title="statement not covered" >      {!loading &amp;&amp; !error &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >        &lt;&gt;</span>
+<span class="cstat-no" title="statement not covered" >          {historial.length === 0 ? (</span>
+<span class="cstat-no" title="statement not covered" >            &lt;Alert severity="info"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              No tienes cálculos registrados. ¡Realiza tu primera medición!</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/Alert&gt;</span>
+<span class="cstat-no" title="statement not covered" >          ) : (</span>
+<span class="cstat-no" title="statement not covered" >            &lt;List sx={{ maxHeight: 400, overflow: "auto" }}&gt;</span>
+<span class="cstat-no" title="statement not covered" >              {historial.map((calculo, index) =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >                &lt;Box key={calculo.id}&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;ListItem sx={{ px: 0, py: 1 }}&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;ListItemText</span>
+<span class="cstat-no" title="statement not covered" >                      primary={</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;Box</span>
+<span class="cstat-no" title="statement not covered" >                          sx={{</span>
+<span class="cstat-no" title="statement not covered" >                            display: "flex",</span>
+<span class="cstat-no" title="statement not covered" >                            justifyContent: "space-between",</span>
+<span class="cstat-no" title="statement not covered" >                            alignItems: "center",</span>
+<span class="cstat-no" title="statement not covered" >                          }}</span>
+<span class="cstat-no" title="statement not covered" >                        &gt;</span>
+<span class="cstat-no" title="statement not covered" >                          &lt;Typography variant="body1" component="span"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;strong&gt;IMC: {calculo.imc.toFixed(2)}&lt;/strong&gt;</span>
+<span class="cstat-no" title="statement not covered" >                          &lt;/Typography&gt;</span>
+<span class="cstat-no" title="statement not covered" >                          &lt;Chip</span>
+<span class="cstat-no" title="statement not covered" >                            label={calculo.categoria}</span>
+<span class="cstat-no" title="statement not covered" >                            color={getColorCategoria(calculo.categoria) as any}</span>
+<span class="cstat-no" title="statement not covered" >                            size="small"</span>
+<span class="cstat-no" title="statement not covered" >                          /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;/Box&gt;</span>
+<span class="cstat-no" title="statement not covered" >                      }</span>
+<span class="cstat-no" title="statement not covered" >                      secondary={</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;Box sx={{ mt: 0.5 }}&gt;</span>
+<span class="cstat-no" title="statement not covered" >                          &lt;Typography variant="body2" color="text.secondary"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            {calculo.peso} kg • {calculo.altura} m</span>
+<span class="cstat-no" title="statement not covered" >                          &lt;/Typography&gt;</span>
+<span class="cstat-no" title="statement not covered" >                          &lt;Typography variant="caption" color="text.secondary"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            {formatearFecha(calculo.fecha)}</span>
+<span class="cstat-no" title="statement not covered" >                          &lt;/Typography&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;/Box&gt;</span>
+<span class="cstat-no" title="statement not covered" >                      }</span>
+<span class="cstat-no" title="statement not covered" >                    /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;/ListItem&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  {index &lt; historial.length - 1 &amp;&amp; &lt;Divider /&gt;}</span>
+<span class="cstat-no" title="statement not covered" >                &lt;/Box&gt;</span>
+<span class="cstat-no" title="statement not covered" >              ))}</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/List&gt;</span>
+<span class="cstat-no" title="statement not covered" >          )}</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/&gt;</span>
+<span class="cstat-no" title="statement not covered" >      )}</span>
+<span class="cstat-no" title="statement not covered" >    &lt;/Paper&gt;</span>
+<span class="cstat-no" title="statement not covered" >  );</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -697,16 +709,16 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-09-15T20:19:13.417Z
+                at 2025-09-29T23:37:14.611Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     

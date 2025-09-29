@@ -20,7 +20,6 @@ vi.mock("axios", () => ({
 }));
 const mockedAxios = axios as any;
 
-
 // Mock localStorage
 const mockLocalStorage = {
   getItem: vi.fn(),
@@ -99,61 +98,72 @@ describe("AuthContext", () => {
   });
 
   it("register crea usuario y luego hace login automático", async () => {
-  const fakeUser = {
-    id: 2,
-    nombre: "Maria",
-    apellido: "García",
-    email: "maria@test.com",
-  };
-
-  // Mock del post para crear usuario
-  mockedAxios.post
-    .mockResolvedValueOnce({ data: { message: "Usuario creado" } }) // primer post -> registro
-    .mockResolvedValueOnce({ data: { access_token: "token-maria-456", user: fakeUser } }); // segundo post -> login automático
-
-  const { result } = renderHook(() => useAuth(), { wrapper });
-
-  expect(result.current.user).toEqual(fakeUser);
-  expect(result.current.isAuthenticated).toBe(true);
-
-
-
-  
-  // Verificar llamadas en orden
-  expect(mockedAxios.post).toHaveBeenNthCalledWith(
-    1,
-    "http://localhost:3000/api/users",
-    {
-      name: "Maria",
-      surname: "García",
+    const fakeUser = {
+      id: 2,
+      nombre: "Maria",
+      apellido: "García",
       email: "maria@test.com",
-      password: "123456",
-    }
-  );
+    };
 
-  expect(mockedAxios.post).toHaveBeenNthCalledWith(
-    2,
-    "http://localhost:3000/api/auth/login",
-    {
-      email: "maria@test.com",
-      password: "123456",
-    }
-  );
-});
+    // Mock del post para crear usuario y luego login
+    mockedAxios.post
+      .mockResolvedValueOnce({ data: { message: "Usuario creado" } }) // registro
+      .mockResolvedValueOnce({ data: { access_token: "token-maria-456", user: fakeUser } }); // login automático
 
+    const { result } = renderHook(() => useAuth(), { wrapper });
+
+    await act(async () => {
+      await result.current.register("Maria", "García", "maria@test.com", "123456");
+    });
+
+    await waitFor(() => {
+      expect(result.current.user).toEqual(fakeUser);
+      expect(result.current.isAuthenticated).toBe(true);
+    });
+
+    // Verificar llamadas en orden
+    expect(mockedAxios.post).toHaveBeenNthCalledWith(
+      1,
+      "http://localhost:3000/users",
+      {
+        name: "Maria",
+        surname: "García",
+        email: "maria@test.com",
+        password: "123456",
+      }
+    );
+
+    expect(mockedAxios.post).toHaveBeenNthCalledWith(
+      2,
+      "http://localhost:3000/auth/login",
+      {
+        email: "maria@test.com",
+        password: "123456",
+      }
+    );
+  });
 
   it("logout limpia datos", async () => {
     const { result } = renderHook(() => useAuth(), { wrapper });
 
     // Simular login previo
+    const fakeUser = {
+      id: 3,
+      nombre: "Pedro",
+      apellido: "López",
+      email: "pedro@test.com",
+    };
     mockedAxios.post.mockResolvedValueOnce({
-      data: { access_token: "token-test", user: { id: 3, nombre: "Pedro", apellido: "López", email: "pedro@test.com" } },
+      data: { access_token: "token-test", user: fakeUser },
     });
+
     await act(async () => {
       await result.current.login("pedro@test.com", "123456");
     });
 
-    expect(result.current.isAuthenticated).toBe(true);
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(true);
+    });
 
     act(() => {
       result.current.logout();
@@ -202,7 +212,9 @@ describe("AuthContext", () => {
 
   it("maneja loading en login", async () => {
     let resolver: (val: any) => void;
-    const promise = new Promise((resolve) => { resolver = resolve; });
+    const promise = new Promise((resolve) => {
+      resolver = resolve;
+    });
     mockedAxios.post.mockReturnValueOnce(promise);
 
     const { result } = renderHook(() => useAuth(), { wrapper });
@@ -214,7 +226,12 @@ describe("AuthContext", () => {
     expect(result.current.loading).toBe(true);
 
     await act(async () => {
-      resolver!({ data: { access_token: "token-x", user: { id: 6, nombre: "Test", apellido: "User", email: "test@test.com" } } });
+      resolver!({
+        data: {
+          access_token: "token-x",
+          user: { id: 6, nombre: "Test", apellido: "User", email: "test@test.com" },
+        },
+      });
       await promise;
     });
 
